@@ -1,0 +1,16 @@
+---
+title: "Part 2 - Less important"
+---
+flowchart TD
+subgraph two
+b1
+b2
+end
+b1 --> b2
+one[["From One"]] --> two
+one:::LinkParts
+three[["From Three"]] --> two
+three:::LinkParts
+two --> c2[["To c2"]]
+c2:::LinkParts
+classDef LinkParts stroke:#555555, fill:#aaaaaa

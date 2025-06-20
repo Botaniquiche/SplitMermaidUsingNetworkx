@@ -1,0 +1,84 @@
+##############################################################################
+#### FLOWCHART PARTITIONING CONFIGURATION                                 ####
+##############################################################################
+
+##############################################################################
+#### nodes_of_interest_to_order_and_name_splitted_parts                   ####
+##############################################################################
+# Description:
+#   This dictionary controls how the flowchart is partitioned into separate files.
+#   Each entry defines a "node of interest" that will become the "center" of a
+#   separate flowchart part.
+#
+# Format:
+#   node_id: "Title for this part"
+#
+# Behavior:
+#   1. For each entry, the specified node and all directly connected nodes
+#      (after split, see other configuration variable split_pairs_with_text_replacement)
+#      will be extracted into a separate flowchart file
+#   2. The order of entries in this dictionary determines the processing sequence
+#   3. Each generated part will be titled using the string assigned to its
+#      node of interest
+#
+nodes_of_interest_to_order_and_name_splitted_parts:
+  #Comment
+  a1:  "Part 1 - Important"
+  b1:  "Part 2 - Less important"
+  c1: "Part 3 - Final"
+
+
+##############################################################################
+#### split_pairs_with_text_replacement                                    ####
+##############################################################################
+# Description:
+#   This dictionary configures how edge connections between partitioned flowcharts
+#   are represented. It defines the text and styling to use when referencing nodes
+#   that exist in other flowchart parts.
+#
+# Format:
+#   node1^node2:  # Edge connecting node1 and node2 to be split
+#     - text to show when representing node1 in node2's flowchart (or "" for no representation)
+#     - text to show when representing node2 in node1's flowchart (or "" for no representation)
+#     - class to apply to node1's representation in node2's flowchart (or "" for default)
+#     - class to apply to node2's representation in node1's flowchart (or "" for default)
+#
+# Behavior:
+#   When partitioning splits an edge between two flowchart parts:
+#   1. In the file containing node1, node2 will appear with the text from element [1]
+#   2. In the file containing node2, node1 will appear with the text from element [0]
+#   3. The  classes in elements [2] and [3] override the default 'LinkParts' class
+#      when custom styling is needed
+#
+# Notes:
+#   - HTML formatting can be used in the replacement text
+#   - Variable placeholders like {div_formatting_small_right} will be substituted
+#     at runtime with the variable with same name
+#   - The "^" character is used to separate node IDs since YAML doesn't support tuple keys
+#     and since "^" is not allowed in node IDs in mermaid
+#
+split_pairs_with_text_replacement:
+  # Aufnahme und Berechnung -- auch --> zus. Durchmessermessung
+  c1^a2:
+    - "From c1"
+    - "To a2"
+    - ""
+    - ""
+
+  one^two:
+    - "From One"
+    - "To two"
+    - ""
+    - ""
+
+  three^two:
+    - "From Three"
+    - "To Two"
+    - ""
+    - ""
+
+  two^c2:
+    - "From Two"
+    - "To c2"
+    - ""
+    - ""
